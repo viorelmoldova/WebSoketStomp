@@ -24,9 +24,9 @@ public class WebSocketConfigStomp implements WebSocketMessageBrokerConfigurer {
     //                .setAllowedOriginPatterns("http://192.168.1.13:8099","http://10.0.2.2:8081", "http://10.0.2.16:8081") // permite originile pentru WebSocket
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/websocket-endpoint")// Endpoint STOMP
-                .setAllowedOriginPatterns("*") // permite toate originile pentru WebSocket
-                .withSockJS();// Fallback SockJS
+        registry.addEndpoint("/websocket-endpoint");// Endpoint STOMP
+//                .setAllowedOriginPatterns("*") // permite toate originile pentru WebSocket
+//                .withSockJS();// Fallback SockJS
     }
     @Bean
     public WebSocketHandlerDecoratorFactory handlerDecoratorFactory() {

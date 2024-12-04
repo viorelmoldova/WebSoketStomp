@@ -7,7 +7,6 @@
     <link href="/main.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
-<!--    <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>-->
     <script src="/stomp.js"></script>
 </head>
 <body>
@@ -16,6 +15,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-6">
+                <div id="status"></div>
                 <form class="form-inline">
                     <div class="form-group">
                         <label for="connect">WebSocket connection:</label>
@@ -41,7 +41,7 @@
             <table id="conversation" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Greetings</th>
+                    <th>Messages</th>
                 </tr>
                 </thead>
                 <tbody id="greetings">

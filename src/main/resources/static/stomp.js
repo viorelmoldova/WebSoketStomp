@@ -24,9 +24,11 @@ function setConnected(connected) {
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
         $("#conversation").show();
+        $("#status").text("Connected")
     }
     else {
         $("#conversation").hide();
+        $("#status").text("Disconnected");
     }
     $("#greetings").html("");
 }
@@ -38,6 +40,7 @@ function connect() {
 function disconnect() {
     stompClient.deactivate();
     setConnected(false);
+    $("#status").text("Disconnected");
     console.log("Disconnected");
 }
 
