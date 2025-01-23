@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket STOMP Example</title>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+
+<script>
+    // Inițializare WebSocket și STOMP
+    var socket = new SockJS('http://192.168.1.13:8098/ws'); // URL-ul serverului WebSocket
+    var stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        // Abonare la mesajele de pe /topic/greetings
+        stompClient.subscribe('/topic/greetings', function (greeting) {
+            console.log("Received message: " + greeting.body);  // Afișează mesajul primit
+            displayMessage(greeting.body);  // Afișează mesajul în listă
+        });
+    });
+
+    // Funcția pentru a trimite mesajul
+    function sendMessage() {
+        var messageInput = document.getElementById("name");  // Preia inputul utilizatorului
+        var messageText = messageInput.value.trim();  // Ia textul introdus de utilizator și îndepărtează spațiile
+
+        if (messageText !== "") {  // Verifică dacă inputul nu este gol
+            if (stompClient && stompClient.connected) {
+                // Trimite mesajul la server pe "/app/hello"
+                stompClient.send("/app/hello", {}, JSON.stringify({'message': messageText}));
+
+                // Curăță câmpul de input
+                messageInput.value = "";
+            } else {
+                console.error('STOMP client is not connected!');
+            }
+        } else {
+            console.error('Please enter a message!');
+        }
+    }
+
+    // Funcția care adaugă mesajul primit la lista de mesaje
+    function displayMessage(message) {
+        var greetingsDiv = document.getElementById("greetings");
+        var messageItem = document.createElement("p");
+        messageItem.innerText = message;  // Setează textul mesajului
+        greetingsDiv.appendChild(messageItem);  // Adaugă mesajul la div-ul de mesaje
+    }
+</script>
+</head>
+<body>
+    <div>
+        <input type="text" id="name" placeholder="Introduceți un mesaj">
+        <button onclick="sendMessage()">Trimite</button>
+    </div>
+    <div id="greetings"></div>
+</body>
+</html>

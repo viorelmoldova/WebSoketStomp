@@ -10,11 +10,11 @@ import org.springframework.web.util.HtmlUtils;
 @Controller
 public class StompController {
 
-  @MessageMapping("/hello")
-  @SendTo("/topic/quiz")
-  public Greeting quiz(HelloMessage message) throws Exception {
-    Thread.sleep(1000); // simulated delay
-    return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
-  }
+//  @MessageMapping("/hello")
+//  @SendTo("/topic/quiz")
+//  public Greeting quiz(HelloMessage message) throws Exception {
+//    Thread.sleep(1000); // simulated delay
+//    return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
+//  }
 
 }
